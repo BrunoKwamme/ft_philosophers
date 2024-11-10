@@ -6,26 +6,28 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 19:52:59 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/09 19:53:06 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/10 01:51:12 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philo.h"
 
-void	print_list(t_philo *list)
+void	print_list(t_table *list)
 {
-	t_philo *philo = list;
-	int	x = 0;
-	while (philo)
+	printf("\n--------- table ---------\n");
+	printf("philo num ->%li\n", list->philo_num);
+	printf("time to die ->%li\n", list->time_to_die);
+	printf("time to eat ->%li\n", list->time_to_eat);
+	printf("time to slepp ->%li\n", list->time_to_sleep);
+	printf("num of lunch ->%i\n", list->num_of_lunch);
+	printf("\n--------- philo ---------\n");
+	for (int x = 0; x < list->philo_num; x++)
 	{
-		printf("philo id -> %d\n", philo->philo_id);
-		printf("time to die ->%d\n", philo->time_to_die);
-		printf("time to eat ->%d\n", philo->time_to_eat);
-		printf("time to sleep ->%d\n", philo->time_to_sleep);
-		printf("num of lunchs%d\n", philo->num_of_lunch);
-		philo = philo->next;
-		x++;
-		printf("\n");
+		printf("philo id ->%d\n", list->philo[x].id);
+		printf("is hungry? ->%d\n", list->philo[x].is_hungry);
+		printf("lunch counter ->%ld\n", list->philo[x].lunch_counter);
 	}
-	printf("num of forks ->%d\n", x);
+	printf("\n--------- spoon ---------\n");
+	for (int y = 0; y < list->philo_num; y++)
+		printf("spoon id ->%d\n", list->spoon[y].spoon_id);
 }
