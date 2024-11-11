@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 19:52:59 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/10 01:51:12 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/10 13:53:04 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void	print_list(t_table *list)
 		printf("philo id ->%d\n", list->philo[x].id);
 		printf("is hungry? ->%d\n", list->philo[x].is_hungry);
 		printf("lunch counter ->%ld\n", list->philo[x].lunch_counter);
+		printf("time to die ->%ld\n", list->philo[x].time_to_die);
+		printf("time to eat ->%ld\n", list->philo[x].time_to_eat);
+		printf("time to sleep ->%ld\n", list->philo[x].time_to_sleep);
+		printf("num of lunch ->%d\n", list->philo[x].num_of_lunch);
+		printf("r_spoon ->%d\n", list->philo[x].r_spoon->spoon_id);
+		printf("l_spoon ->%d\n", list->philo[x].l_spoon->spoon_id);
 	}
 	printf("\n--------- spoon ---------\n");
 	for (int y = 0; y < list->philo_num; y++)

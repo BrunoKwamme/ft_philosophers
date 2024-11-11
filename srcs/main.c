@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 16:49:34 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/10 02:39:15 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/10 14:40:11 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	arg_val(char	**argv)
 	int	arg_i;
 
 	arg_i = 1;
+	if (ft_atol(argv[1]) >= 200)
+		return (0);
 	while (argv[arg_i])
 	{
 		i = 0;
@@ -28,6 +30,8 @@ int	arg_val(char	**argv)
 				return (0);
 			i++;
 		}
+		if (arg_i > 1 && ft_atol(argv[arg_i]) > 2147483647)
+			return (0);
 		arg_i++;
 	}
 	return (1);
@@ -44,6 +48,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	table = populate_table(argv);
-	print_list(table);
+	//print_list(table);
+	start_lunch(table);
 	return (0);
 }

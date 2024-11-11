@@ -1,43 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/09 18:33:56 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/09 18:38:57 by bkwamme          ###   ########.fr       */
+/*   Created: 2024/11/10 14:27:09 by bkwamme           #+#    #+#             */
+/*   Updated: 2024/11/10 14:27:20 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philo.h"
 
-void	ft_bzero(void *s, size_t n)
+long	get_time(void)
 {
-	size_t	i;
-	char	*str;
+	struct timeval		time;
+	long				ms;
 
-	str = (char *) s;
-	i = 0;
-	while (i < n)
-	{
-		str[i] = '\0';
-		i++;
-	}
+	gettimeofday(&time, NULL);
+	ms = time.tv_sec * 1000;
+	ms += time.tv_usec / 1000;
+	return (ms);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	ft_usleep(long ms)
 {
-	char	*memptr;
+	long	start;
 
-	if (nmemb == 0 || size == 0)
-	{
-		nmemb = 1;
-		size = 1;
-	}
-	memptr = malloc ((nmemb * size));
-	if (!memptr)
-		return (NULL);
-	ft_bzero(memptr, size * nmemb);
-	return ((void *)memptr);
+	start = get_time();
+	while ((get_time() - start) < ms)
+		usleep(500);
 }

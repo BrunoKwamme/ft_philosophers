@@ -2,6 +2,7 @@
 # define PHILO_DATA_H
 
 # include <pthread.h>
+# include <stdbool.h>
 
 typedef pthread_mutex_t mutex_t;
 
@@ -22,18 +23,35 @@ typedef enum pthread_code
 	DETACH,
 } p_code;
 
+typedef enum state_code
+{
+	EATING,
+	FORK,
+	SLEEPING,
+	THINKING,
+	DIED,
+} s_code;
+
 typedef struct	s_spoon
 {
 	mutex_t	spoon;
 	int		spoon_id;
+	bool	is_free;
 
 }	t_spoon;
 
 typedef struct	s_philo
 {
 	int				id;
-	int				is_hungry;
+	bool			is_hungry;
 	long			lunch_counter;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			starving;
+	int				num_of_lunch;
+	mutex_t			lunch_counter_mtx;
+	mutex_t			starving_mtx;
 	pthread_t		thread;
 	t_spoon			*r_spoon;
 	t_spoon			*l_spoon;
@@ -47,6 +65,10 @@ struct	s_table
 	long			time_to_eat;
 	long			time_to_sleep;
 	int				num_of_lunch;
+	long			start_lunch;
+	bool			is_over;
+	mutex_t			print_mtx;
+	mutex_t			is_over_mtx;
 	t_philo			*philo;
 	t_spoon			*spoon;
 } ;

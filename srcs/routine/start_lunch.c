@@ -1,0 +1,78 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_lunch.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/10 14:12:51 by bkwamme           #+#    #+#             */
+/*   Updated: 2024/11/11 11:17:47 by bkwamme          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/philo.h"
+
+void	set_starving(t_philo *philo)
+{
+	mutex_handle(&philo->starving_mtx, LOCK);
+	philo->starving = get_time() + philo->time_to_die;
+	mutex_handle(&philo->starving_mtx, UNLOCK);
+}
+
+bool	is_philo_full(t_philo *philo)
+{
+	mutex_handle(&philo->lunch_counter_mtx, LOCK);
+	if (philo->lunch_counter == philo->num_of_lunch)
+	{
+		mutex_handle(&philo->lunch_counter_mtx, UNLOCK);
+		return (false);
+	}
+	mutex_handle(&philo->lunch_counter_mtx, UNLOCK);
+	return (true);
+}
+
+int	sherlock(t_philo *philo)
+{
+	mutex_handle(&philo->table->is_over_mtx, LOCK);
+	if (philo->table->is_over == true || is_philo_full(philo) == false)
+	{
+		mutex_handle(&philo->table->is_over_mtx, UNLOCK);
+		return (0);
+	}
+	mutex_handle(&philo->table->is_over_mtx, UNLOCK);
+	return (1);
+}
+
+void	*routine(void *arg)
+{
+	t_philo *philo;
+
+	philo = (t_philo *)arg;
+	//simulate_print(philo);
+	set_starving(philo);
+	if (philo->id % 2 == 0)
+		ft_usleep(100);
+	while (sherlock(philo) == 1)//sherlock
+	{
+
+		if (eating(philo) == 0)
+			break ;
+		simulate_print(philo, SLEEPING);
+		ft_usleep(philo->time_to_sleep);
+		//sleep
+	}
+	return (NULL);
+}
+
+void	start_lunch(t_table *table)
+{
+	int		i;
+
+	i = -1;
+	table->start_lunch = get_time();
+	while (++i < table->philo_num)
+		pthread_create(&table->philo[i].thread, NULL, routine, (void *)&table->philo[i]);
+	i = -1;
+	while (++i < table->philo_num)
+		pthread_join(table->philo[i].thread, NULL);
+}
