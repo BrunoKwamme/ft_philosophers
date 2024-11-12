@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:14:44 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/12 15:53:29 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:59:20 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	populate_philo(t_table *table, t_philo *philo)
 	}
 }
 
-void	*populate_spoon(t_table *table)
+void	populate_spoon(t_table *table)
 {
 	int	i;
 
