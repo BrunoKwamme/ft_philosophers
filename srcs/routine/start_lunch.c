@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:12:51 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/11 11:17:47 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/12 14:00:16 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ bool	is_philo_full(t_philo *philo)
 	if (philo->lunch_counter == philo->num_of_lunch)
 	{
 		mutex_handle(&philo->lunch_counter_mtx, UNLOCK);
-		return (false);
+		return (true);
 	}
 	mutex_handle(&philo->lunch_counter_mtx, UNLOCK);
-	return (true);
+	return (false);
 }
 
-int	sherlock(t_philo *philo)
+int	watson(t_philo *philo)
 {
 	mutex_handle(&philo->table->is_over_mtx, LOCK);
-	if (philo->table->is_over == true || is_philo_full(philo) == false)
+	if (philo->table->is_over == true || is_philo_full(philo) == true)
 	{
 		mutex_handle(&philo->table->is_over_mtx, UNLOCK);
 		return (0);
@@ -43,36 +43,40 @@ int	sherlock(t_philo *philo)
 	return (1);
 }
 
-void	*routine(void *arg)
+void	*philo_routine(void *arg)
 {
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	//simulate_print(philo);
+	//print_actions(philo);
 	set_starving(philo);
 	if (philo->id % 2 == 0)
-		ft_usleep(100);
-	while (sherlock(philo) == 1)//sherlock
+		ft_usleep(60);
+	while (watson(philo) == 1)//sherlock
 	{
-
-		if (eating(philo) == 0)
+		if (!thinking(philo))
 			break ;
-		simulate_print(philo, SLEEPING);
-		ft_usleep(philo->time_to_sleep);
-		//sleep
+		if (!eating(philo))
+			break ;
+		if (!sleeping(philo))
+			break ;
 	}
 	return (NULL);
 }
 
 void	start_lunch(t_table *table)
 {
-	int		i;
+	pthread_t	sherlock;
+	int			i;
 
 	i = -1;
 	table->start_lunch = get_time();
 	while (++i < table->philo_num)
-		pthread_create(&table->philo[i].thread, NULL, routine, (void *)&table->philo[i]);
+		pthread_create(&table->philo[i].thread, NULL, philo_routine, (void *)&table->philo[i]);
 	i = -1;
+	pthread_create(&sherlock, NULL, sherlock_routine, (void *) table);
+	pthread_join(sherlock, NULL);
 	while (++i < table->philo_num)
 		pthread_join(table->philo[i].thread, NULL);
+	destroy_and_free(table);
 }

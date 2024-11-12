@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:14:44 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/11 10:43:34 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:53:29 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,24 @@ void	populate_philo(t_table *table, t_philo *philo)
 	}
 }
 
+void	*populate_spoon(t_table *table)
+{
+	int	i;
+
+	i = -1;
+	while (++i < table->philo_num)
+	{
+		table->spoon[i].spoon_id = i + 1;
+		table->spoon[i].is_free = true;
+		mutex_handle(&table->spoon[i].spoon, INIT);
+	}
+}
+
 t_table	*populate_table(char **argv)
 {
 	t_table		*table;
-	int			i;
 
 	table = malloc(sizeof(t_table) * 1);
-	i = -1;
 	table->time_to_die = ft_atol(argv[2]);
 	table->time_to_eat = ft_atol(argv[3]);
 	table->time_to_sleep = ft_atol(argv[4]);
@@ -54,12 +65,7 @@ t_table	*populate_table(char **argv)
 	table->philo = malloc(sizeof(t_philo) * table->philo_num);
 	mutex_handle(&table->print_mtx, INIT);
 	mutex_handle(&table->is_over_mtx, INIT);
-	while (++i < table->philo_num)
-	{
-		table->spoon[i].spoon_id = i + 1;
-		table->spoon[i].is_free = true;
-		mutex_handle(&table->spoon[i].spoon, INIT);
-	}
+	populate_spoon(table);
 	populate_philo(table, table->philo);
 	return (table);
 }

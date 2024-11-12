@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 16:49:34 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/10 14:40:11 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:54:40 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	table = populate_table(argv);
-	//print_list(table);
 	start_lunch(table);
 	return (0);
 }
