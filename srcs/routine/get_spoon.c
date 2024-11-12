@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   spoon_link.c                                       :+:      :+:    :+:   */
+/*   get_spoon.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:00:48 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/12 11:37:08 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:56:29 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philo.h"
-
-
 
 int	getl_spoon(t_philo *philo)
 {
@@ -50,5 +48,4 @@ void	return_spoons(t_philo *philo)
 	mutex_handle(&philo->r_spoon->spoon, LOCK);
 	philo->r_spoon->is_free = true;
 	mutex_handle(&philo->r_spoon->spoon, UNLOCK);
-
 }

@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 10:46:41 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/12 15:25:55 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:56:53 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	is_all_full(t_philo *philo, int *flag)
 
 void	*sherlock_routine(void	*arg)
 {
-	t_table *table;
+	t_table	*table;
 	int		i;
 	int		flag;
 

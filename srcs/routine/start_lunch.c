@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:12:51 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/12 14:00:16 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/12 15:57:43 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,13 @@ int	watson(t_philo *philo)
 
 void	*philo_routine(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	//print_actions(philo);
 	set_starving(philo);
 	if (philo->id % 2 == 0)
 		ft_usleep(60);
-	while (watson(philo) == 1)//sherlock
+	while (watson(philo) == 1)
 	{
 		if (!thinking(philo))
 			break ;
@@ -72,7 +71,8 @@ void	start_lunch(t_table *table)
 	i = -1;
 	table->start_lunch = get_time();
 	while (++i < table->philo_num)
-		pthread_create(&table->philo[i].thread, NULL, philo_routine, (void *)&table->philo[i]);
+		pthread_create(&table->philo[i].thread, NULL,
+			philo_routine, (void *)&table->philo[i]);
 	i = -1;
 	pthread_create(&sherlock, NULL, sherlock_routine, (void *) table);
 	pthread_join(sherlock, NULL);
