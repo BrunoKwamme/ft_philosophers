@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:12:51 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/12 15:57:43 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/21 14:22:52 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ bool	is_philo_full(t_philo *philo)
 int	watson(t_philo *philo)
 {
 	mutex_handle(&philo->table->is_over_mtx, LOCK);
-	if (philo->table->is_over == true || is_philo_full(philo) == true)
+	if (philo->table->is_over == true)
 	{
 		mutex_handle(&philo->table->is_over_mtx, UNLOCK);
-		return (0);
+			return (0);
 	}
 	mutex_handle(&philo->table->is_over_mtx, UNLOCK);
+	if (is_philo_full(philo) == true)
+		return (0);
 	return (1);
 }
 
@@ -50,7 +52,7 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	set_starving(philo);
 	if (philo->id % 2 == 0)
-		ft_usleep(60);
+		ft_usleep(100);
 	while (watson(philo) == 1)
 	{
 		if (!thinking(philo))

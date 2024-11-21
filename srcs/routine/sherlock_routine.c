@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 10:46:41 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/12 15:56:53 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/21 14:30:57 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	tell_death(t_table *table)
 	mutex_handle(&table->is_over_mtx, LOCK);
 	if (!table->is_over)
 	{
-		mutex_handle(&table->is_over_mtx, UNLOCK);
 		table->is_over = true;
+		mutex_handle(&table->is_over_mtx, UNLOCK);
 		return (1);
 	}
 	mutex_handle(&table->is_over_mtx, UNLOCK);
