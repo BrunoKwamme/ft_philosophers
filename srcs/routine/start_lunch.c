@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:12:51 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/21 14:22:52 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/21 15:01:24 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	watson(t_philo *philo)
 	if (philo->table->is_over == true)
 	{
 		mutex_handle(&philo->table->is_over_mtx, UNLOCK);
-			return (0);
+		return (0);
 	}
 	mutex_handle(&philo->table->is_over_mtx, UNLOCK);
 	if (is_philo_full(philo) == true)

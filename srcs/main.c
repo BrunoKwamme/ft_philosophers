@@ -6,7 +6,7 @@
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 16:49:34 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/12 15:54:40 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/21 14:48:33 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	arg_val(char	**argv)
 	int	arg_i;
 
 	arg_i = 1;
-	if (ft_atol(argv[1]) >= 200)
+	if (ft_atol(argv[1]) > 200)
 		return (0);
 	while (argv[arg_i])
 	{
