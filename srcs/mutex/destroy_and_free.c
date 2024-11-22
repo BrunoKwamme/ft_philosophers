@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex_destroyer.c                                  :+:      :+:    :+:   */
+/*   destroy_and_free.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkwamme <bkwamme@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 11:30:45 by bkwamme           #+#    #+#             */
-/*   Updated: 2024/11/11 14:39:31 by bkwamme          ###   ########.fr       */
+/*   Updated: 2024/11/22 14:04:04 by bkwamme          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	destroy_and_free(t_table *table)
 		mutex_handle(&table->philo[i].starving_mtx, DESTROY);
 		mutex_handle(&table->spoon[i].spoon, DESTROY);
 	}
+	mutex_handle(&table->print_mtx, DESTROY);
+	mutex_handle(&table->is_over_mtx, DESTROY);
 	free(table->philo);
 	free(table->spoon);
 	free(table);

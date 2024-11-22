@@ -1,7 +1,7 @@
 NAME = philo
 
 RM = rm -rf
-COMPILER = cc -Wall -Wextra -Werror
+COMPILER = cc -Wall -Wextra -Werror -pthread
 
 DIR_OBJS = builds/
 DIR_SRCS = srcs/
@@ -37,3 +37,6 @@ fclean: clean
 	$(RM) $(NAME) $(DIR_OBJS)
 
 re: fclean all
+
+debug:	FLAGS += -ggdb3
+debug:	fclean ${NAME}
